@@ -1,0 +1,7 @@
+{
+  "db": {
+    "filename": "./data/test.db"
+  },
+  "DEBUG": true,
+  "endOfJSON": true
+}

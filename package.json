@@ -23,6 +23,8 @@
   "homepage": "https://github.com/yangliu/http-log-stat-server#readme",
   "dependencies": {
     "coffee-script": "^1.9.3",
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "sqlite3": "^3.0.10",
+    "node-uuid": "^1.4.3"
   }
 }
