@@ -12,7 +12,7 @@ exports.get_by_uuid = (uuid, cb) ->
       cb err_pos + err, null
       return false
     else
-      sql = db.prepare "SELECT * FROM logger WHERE `uuid` LIKE '?'"
+      sql = db.prepare "SELECT * FROM logger WHERE `uuid` LIKE ?"
       sql.get uuid, (err, row) ->
         if err
           cb err_pos + err, null
@@ -59,7 +59,7 @@ exports.get_all_uuid = (cb) ->
       cb err_pos + err, null
       return false
     else
-      sql = db.prepare "SELECT id FROM logger"
+      sql = db.prepare "SELECT uuid FROM logger"
       sql.all (err, rows) ->
         if err
           cb err_pos + err, null
@@ -76,8 +76,8 @@ exports.delete = (uuid, cb) ->
       cb err_pos + err, null
       return false
     else
-      sql = db.prepare "DELETE FROM logger WHERE `uuid` LIKE '?'"
-      sql.run id, (err) ->
+      sql = db.prepare "DELETE FROM logger WHERE `uuid` LIKE ?"
+      sql.run uuid, (err) ->
         if err
           cb err_pos + err, null
           return false
