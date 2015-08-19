@@ -2,7 +2,7 @@ express = require 'express'
 
 app = express()
 
-logger = require './models/logger.coffee'
+logger = require './models/logger'
 # db.create (err) ->
 #   console.error err
 
@@ -48,5 +48,5 @@ logger.get_all_uuid (err, uuids) ->
     #   legend: "UPDATE#1"
     #   cipher: "NEW"
     #
-    logger.update new_row, (err, row) ->
-      console.log row
+    # logger.update new_row, (err, row) ->
+    #   console.log row

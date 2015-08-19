@@ -1,6 +1,6 @@
 crypto = require 'crypto'
 uuid   = require 'node-uuid'
-DB     = require './db.coffee'
+DB     = require './db'
 
 exports.TYPE_TEMPERATURE = 1
 exports.TYPE_PRESSURE = 2
