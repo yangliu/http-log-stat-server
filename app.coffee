@@ -42,11 +42,11 @@ logger.get_all_uuid (err, uuids) ->
     #   if err then console.error err
     #   else
     #     console.log "Item #{uuids[2]} has been removed Successfully."
-    new_row =
-      uuid: uuids[3]
-      description: "New description"
-      legend: "UPDATE#1"
-      cipher: "NEW"
-
+    # new_row =
+    #   uuid: uuids[3]
+    #   description: "New description"
+    #   legend: "UPDATE#1"
+    #   cipher: "NEW"
+    #
     logger.update new_row, (err, row) ->
       console.log row
