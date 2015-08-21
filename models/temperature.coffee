@@ -72,7 +72,8 @@ module.exports =
         cb errlog "update", err
         return false
       else
-        this.get_by_rowid row.rowid, (err, orig_row) ->
+        sqlo = db.prepare "SELECT `_rowid_`, * FROM temperature WHERE _rowid_ LIKE #{row.rowid}"
+        sqlo.get (err, orig_row) ->
           if err
             cb errlog "update", err
             return false
@@ -91,19 +92,19 @@ module.exports =
             cb null, new_row
             return true
 
-    delete: (where, cb) ->
-      DB.do (db, err) ->
+  delete: (where, cb) ->
+    DB.do (db, err) ->
+      if err
+        cb errlog "delete", err
+        return false
+
+      sql = db.prepare "DELETE FROM temperature WHERE #{where}"
+      sql.run (err) ->
         if err
           cb errlog "delete", err
           return false
+        cb null
+        return true
 
-        sql = db.prepare "DELETE FROM temperature WHERE #{where}"
-        sql.run (err) ->
-          if err
-            cb errlog "delete", err
-            return false
-          cb null
-          return true
-
-    delete_by_rowid: (rowid, cb) ->
-      return this.delete "`_rowid_`='#{rowid}'", cb
+  delete_by_rowid: (rowid, cb) ->
+    return module.exports.delete "`_rowid_`='#{rowid}'", cb

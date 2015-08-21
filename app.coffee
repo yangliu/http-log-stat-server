@@ -3,6 +3,7 @@ express = require 'express'
 app = express()
 
 logger = require './models/logger'
+temp = require './models/temperature'
 # db.create (err) ->
 #   console.error err
 
@@ -27,13 +28,25 @@ logger = require './models/logger'
 #       console.error err
 #     else
 #       console.log "Successfully add Logger #{row.$uuid}, #{row.$legend}"
+
+getRand = (min, max, round) ->
+  num = Math.random()*(max-min+1)+min
+  if round?
+    round = Math.floor round
+    num = Math.round(num * Math.pow(10, round))/Math.pow(10,round)
+  return num
+
+getRandInt = (min, max) ->
+  return Math.floor getRand(min, max)
+
+
 logger.get_all_uuid (err, uuids) ->
   if err then console.error err
   else
-    logger.get_by_uuid uuids[3], (err, row) ->
-      if err then console.error err
-      else
-        console.log 'get_by_uuid', row
+    # logger.get_by_uuid uuids[3], (err, row) ->
+    #   if err then console.error err
+    #   else
+    #     console.log 'get_by_uuid', row
     # logger.all "`uuid` LIKE '%4%'", (err, row) ->
     #   if err then console.error err
     #   else
@@ -50,3 +63,27 @@ logger.get_all_uuid (err, uuids) ->
     #
     # logger.update new_row, (err, row) ->
     #   console.log row
+    # for i in [1..5]
+      # tmplogger = uuids[getRandInt(0,uuids.length-1)]
+      # for j in [1..7]
+      #   tmp = getRand -3.0, 45.0, 2
+      #   newtemp =
+      #     logger: tmplogger
+      #     time: Date.now()
+      #     temperature: tmp
+      #
+      #   temp.add newtemp, (err, new_row) ->
+      #     if err then console.error err
+      #     else
+      #       console.log new_row
+      # temp.each null,null,null, (err, row) ->
+      #   console.log row
+    temp.get_by_rowid 32, (err, row) ->
+      console.log row
+      new_row =
+        rowid: row.rowid
+        temperature: 55.0
+      temp.update new_row, (err, nrow) ->
+        console.log nrow
+      temp.delete_by_rowid 5, (err) ->
+        if err then console.error err
